@@ -94,7 +94,9 @@ jobs:
               fi
               ./mvnw clean package -DskipTests -pl num-consent-plugin -am
               ./mvnw clean install -DskipTests -pl better-abac-server -am
-              cp num-consent-plugin/target/num-consent-plugin.zip better-abac-server/target/classes/num-consent-plugin.zip
+              mkdir better-abac-server/target/classes/plugins
+              chmod 777 better-abac-server/target/classes/plugins
+              cp num-consent-plugin/target/num-consent-plugin.zip better-abac-server/target/classes/plugins/num-consent-plugin.zip
               echo "Publishing Docker image with following tag: ${TAG}"
               echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
               cd better-abac-server
