@@ -93,14 +93,14 @@ jobs:
                   TAG="$(echo $CIRCLE_BRANCH | awk -F'/' '{print $2;}')-rc"
               fi
               ./mvnw clean package -DskipTests -pl num-consent-plugin -am
-              ./mvnw clean package -DskipTests -pl better-abac-server -am
-              mkdir better-abac-server/target/plugins
-              chmod 777 better-abac-server/target/plugins
-              cp num-consent-plugin/target/num-consent-plugin.zip better-abac-server/target/plugins/num-consent-plugin.zip
+              ./mvnw clean install -DskipTests -pl better-abac-server -am
+              mkdir better-abac-server/target/classes/plugins
+              chmod 777 better-abac-server/target/classes/plugins
+              cp num-consent-plugin/target/num-consent-plugin.zip better-abac-server/target/classes/plugins/num-consent-plugin.zip
               echo "Publishing Docker image with following tag: ${TAG}"
               echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
               cd better-abac-server
-              docker build -t $DOCKER_USER/abac-server:$TAG .
+              ../mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=$DOCKER_USER/abac-server:$TAG -Dmaven.test.skip
               docker push $DOCKER_USER/abac-server:$TAG
 
 commands:
