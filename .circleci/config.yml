@@ -90,7 +90,7 @@ jobs:
               elif [ $CIRCLE_BRANCH = "develop" ]; then
                   TAG="next"
               else
-                  TAG="$(echo $CIRCLE_BRANCH | awk -F'/' '{print $2;}')-rc"
+                  TAG="$(echo $CIRCLE_BRANCH | awk -F'/' '{print $2;}')-rc$CIRCLE_BUILD_NUM"
               fi
               ./mvnw clean package -DskipTests -pl num-consent-plugin -am
               ./mvnw clean install -DskipTests -pl better-abac-server -am
