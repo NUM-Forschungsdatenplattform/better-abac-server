@@ -15,16 +15,19 @@ import care.better.abac.plugin.auth.AuthorizationProvider;
 import care.better.abac.plugin.listener.ListenerServiceAutoConfiguration;
 import care.better.abac.plugin.sync.SynchronizingServiceAutoConfiguration;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.nio.file.Paths;
 import java.util.Optional;
 
 /**
  * @author Andrej Dolenc
  */
 @Configuration
+@Slf4j
 @ImportAutoConfiguration({SynchronizingServiceAutoConfiguration.class, ListenerServiceAutoConfiguration.class})
 public class PluginConfiguration {
 
@@ -39,6 +42,8 @@ public class PluginConfiguration {
 
     @Bean
     public PluginManager pluginManager() {
+        log.info("Initializing plugins");
+        log.info(Paths.get("plugins").toString());
         return new PluginManager();
     }
 
