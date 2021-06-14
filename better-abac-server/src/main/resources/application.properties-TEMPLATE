@@ -38,3 +38,12 @@ client.auth.password=password
 
 # Async service
 async.rest.base-callback-url=http://localhost:8080/
+
+# Actuator endpoint
+management.endpoints.enabled-by-default=false
+management.endpoints.web.exposure.include=health,info
+management.endpoint.health.enabled=true
+management.endpoint.probes.enabled=true
+management.endpoint.info.enabled=true
+management.health.mail.enabled=false
+management.server.port=8091
